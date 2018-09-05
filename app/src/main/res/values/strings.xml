@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Meetup Foodie droid</string>
+    <string name="title_activity_food_item_detail">FoodItemDetailActivity</string>
+    <string name="title_activity_add_food_item">AddFoodItemActivity</string>
+</resources>
