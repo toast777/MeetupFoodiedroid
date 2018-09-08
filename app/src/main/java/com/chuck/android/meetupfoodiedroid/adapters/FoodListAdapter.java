@@ -2,11 +2,13 @@ package com.chuck.android.meetupfoodiedroid.adapters;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chuck.android.meetupfoodiedroid.R;
 import com.chuck.android.meetupfoodiedroid.models.FoodItem;
@@ -18,11 +20,17 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodIt
     private List<FoodItem> foodList;
 
     public class FoodItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        LinearLayout foodLayout;
+        ConstraintLayout foodLayout;
+        TextView foodName;
+        TextView foodPrice;
+
 
         FoodItemViewHolder(View v) {
             super(v);
             //Desgine Viewholder Text objects
+            foodLayout = v.findViewById(R.id.rv_food_items);
+            foodName = v.findViewById(R.id.rvtv_food_name);
+            foodPrice = v.findViewById(R.id.rvtv_food_price);
             v.setOnClickListener(this);
         }
 
@@ -39,7 +47,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodIt
     @Override
     public FoodListAdapter.FoodItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.movie_list_item,parent,false);
+        View view = inflater.inflate(R.layout.food_item_list,parent,false);
         return new FoodItemViewHolder(view);
     }
 
@@ -47,6 +55,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodIt
     public void onBindViewHolder(@NonNull FoodListAdapter.FoodItemViewHolder holder, int position) {
         if (foodList != null)
         {
+            holder.foodName.setText(foodList.get(position).getItemName());
+            holder.foodPrice.setText(Double.toString(foodList.get(position).getPrice()));
             //What do we populate textview with
         }
     }

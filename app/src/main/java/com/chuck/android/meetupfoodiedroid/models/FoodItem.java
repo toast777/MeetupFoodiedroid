@@ -2,29 +2,30 @@ package com.chuck.android.meetupfoodiedroid.models;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import java.util.UUID;
 
 @Entity(tableName = "foodItems")
 
 public class FoodItem {
     //Food item attributes
     @PrimaryKey
-    private Integer id;
+    @NonNull private String id;
     private String itemName;
-    private Integer imgSrc;
-    private Float price;
-    private Float customPrice;
+    private int imgSrc;
+    private double price;
+    private double customPrice;
 
-    public FoodItem(Integer id, String itemName, Integer imgSrc, Float price, Float customPrice) {
-        this.id = id;
+    public FoodItem( String itemName, Integer imgSrc, double price, double customPrice) {
+        this.id = UUID.randomUUID().toString();
         this.itemName = itemName;
         this.imgSrc = imgSrc;
         this.price = price;
         this.customPrice = customPrice;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
     public String getItemName() {
         return itemName;
@@ -34,29 +35,35 @@ public class FoodItem {
         this.itemName = itemName;
     }
 
-    public Integer getImgSrc() {
+    public int getImgSrc() {
         return imgSrc;
     }
 
-    public void setImgSrc(Integer imgSrc) {
+    public void setImgSrc(int imgSrc) {
         this.imgSrc = imgSrc;
     }
 
-    public Float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public Float getCustomPrice() {
+    public double getCustomPrice() {
         return customPrice;
     }
 
-    public void setCustomPrice(Float customPrice) {
+    public void setCustomPrice(double customPrice) {
         this.customPrice = customPrice;
     }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {this.id = id;}
+
     //Constructor
 
 
