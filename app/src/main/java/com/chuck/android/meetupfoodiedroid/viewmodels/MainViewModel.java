@@ -23,4 +23,9 @@ public class MainViewModel extends AndroidViewModel {
 
     public LiveData<List<FoodItem>> getFoodList() {return foodList;}
 
+    public void addFoodItem(FoodItem item) {
+        //creates a new favorite in DB
+        mRepository.insertFoodItem(item);
+    }
+
 }

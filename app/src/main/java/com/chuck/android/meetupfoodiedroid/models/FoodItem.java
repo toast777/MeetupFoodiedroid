@@ -1,6 +1,7 @@
 package com.chuck.android.meetupfoodiedroid.models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,8 @@ public class FoodItem {
         this.price = price;
         this.customPrice = customPrice;
     }
+    @Ignore
+    public FoodItem(){}
 
 
     public String getItemName() {
