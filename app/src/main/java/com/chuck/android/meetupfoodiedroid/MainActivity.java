@@ -3,22 +3,32 @@ package com.chuck.android.meetupfoodiedroid;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chuck.android.meetupfoodiedroid.adapters.FoodListAdapter;
 import com.chuck.android.meetupfoodiedroid.models.FoodItem;
 import com.chuck.android.meetupfoodiedroid.viewmodels.MainViewModel;
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private FoodListAdapter adapter;
     LinearLayoutManager foodLayoutManager;
     private MainViewModel mViewModel;
+    private FirebaseAuth mAuth;
+
 
 
     @Override
@@ -35,8 +47,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(getApplicationContext());
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
         Stetho.initializeWithDefaults(this);
 
+        mAuth = FirebaseAuth.getInstance();
+        anonymousSignIn();
 
         final FoodItem testItem;
         final List<FoodItem> foodItemList = new ArrayList<FoodItem>();
@@ -89,5 +105,25 @@ public class MainActivity extends AppCompatActivity {
                 };
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mViewModel.getFoodList().observe(this, foodObserver);
+    }
+    private void anonymousSignIn() {
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInAnonymously:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInAnonymously:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        // ...
+                    }
+                });
+
     }
 }
