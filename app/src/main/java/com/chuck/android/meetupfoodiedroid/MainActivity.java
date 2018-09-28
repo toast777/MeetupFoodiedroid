@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         startOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AddFoodItemActivity.class);
+                Intent intent = new Intent(view.getContext(), SettingsActivity.class);
                 startActivity(intent);
             }
         });
@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        final String TAG = "Main Activity" ;
+
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInAnonymously:success");
