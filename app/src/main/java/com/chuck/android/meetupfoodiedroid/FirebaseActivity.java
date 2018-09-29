@@ -9,7 +9,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chuck.android.meetupfoodiedroid.adapters.FirebaseFoodAdapter;
 import com.chuck.android.meetupfoodiedroid.adapters.FoodListAdapter;
+import com.chuck.android.meetupfoodiedroid.models.FirebaseFoodItem;
 import com.chuck.android.meetupfoodiedroid.models.FoodItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,10 +30,10 @@ import java.util.List;
 public class FirebaseActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity" ;
-    List<FoodItem> mFoodItems = new ArrayList<>();
+    List<FirebaseFoodItem> mFoodItems = new ArrayList<>();
     private FirebaseAuth mAuth;
     private RecyclerView rvFoodList;
-    private FoodListAdapter adapter;
+    private FirebaseFoodAdapter adapter;
     LinearLayoutManager foodLayoutManager;
     private String UserID;
 
@@ -42,7 +44,7 @@ public class FirebaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_firebase);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference myRef = database.getReference("Kansas City").child("Papa Johns");
 
         mAuth = FirebaseAuth.getInstance();
         anonymousSignIn();
@@ -55,11 +57,11 @@ public class FirebaseActivity extends AppCompatActivity {
         initRecyclerView();
 
         // Read from the database
-        myRef.child("foodItem").addValueEventListener(new ValueEventListener() {
+        myRef.child("food items").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    FoodItem food = snapshot.getValue(FoodItem.class);
+                    FirebaseFoodItem food = snapshot.getValue(FirebaseFoodItem.class);
                     mFoodItems.add(food);
                     Log.i(TAG, "food loaded");
                 }
@@ -76,7 +78,7 @@ public class FirebaseActivity extends AppCompatActivity {
     private void initRecyclerView() {
         foodLayoutManager = new LinearLayoutManager(this);
         rvFoodList.setLayoutManager(foodLayoutManager);
-        adapter = new FoodListAdapter();
+        adapter = new FirebaseFoodAdapter();
         rvFoodList.setAdapter(adapter);
     }
     private void anonymousSignIn() {
