@@ -71,4 +71,5 @@ public class AppRepository {
             }
         });
     }
+    public void deleteAll(){foodDB.foodItemDao().deleteAll();}
 }

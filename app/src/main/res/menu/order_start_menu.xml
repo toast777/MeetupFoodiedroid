@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <menu xmlns:app="http://schemas.android.com/apk/res-auto"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/clear_table"
+              android:icon="@drawable/ic_clear_table"
+              android:title="@string/clear_table"
+              app:showAsAction="ifRoom"/>
+        <item android:id="@+id/choose_region"
+              android:icon="@drawable/ic_choose_region"
+              android:title="@string/choose_region" />
+    </menu>

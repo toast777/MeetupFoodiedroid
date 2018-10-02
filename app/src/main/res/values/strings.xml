@@ -77,4 +77,6 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_list_preference">Select a Region</string>
     <string name="dialog_title_list_preference">Select a Region</string>
+    <string name="clear_table">Clear Table</string>
+    <string name="choose_region">Choose Region</string>
 </resources>

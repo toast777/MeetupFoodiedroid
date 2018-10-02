@@ -46,12 +46,6 @@ public class FirebaseActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Kansas City").child("Papa Johns");
 
-        mAuth = FirebaseAuth.getInstance();
-        anonymousSignIn();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-  //      UserID = currentUser.getUid();
-    //    myRef.child("users").setValue(UserID);
-
 
         rvFoodList = findViewById(R.id.rv_food_items_firebase);
         initRecyclerView();
@@ -80,25 +74,5 @@ public class FirebaseActivity extends AppCompatActivity {
         rvFoodList.setLayoutManager(foodLayoutManager);
         adapter = new FirebaseFoodAdapter();
         rvFoodList.setAdapter(adapter);
-    }
-    private void anonymousSignIn() {
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInAnonymously:success");
-                             FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInAnonymously:failure", task.getException());
-                            Toast.makeText(FirebaseActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        // ...
-                    }
-                });
-
     }
 }

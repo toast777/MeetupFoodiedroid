@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.chuck.android.meetupfoodiedroid.adapters.FoodListAdapter;
 import com.chuck.android.meetupfoodiedroid.models.FoodItem;
+import com.chuck.android.meetupfoodiedroid.utils.FirebaseUtils;
 import com.chuck.android.meetupfoodiedroid.viewmodels.MainViewModel;
 import com.facebook.stetho.Stetho;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,9 +39,14 @@ public class MainActivity extends AppCompatActivity {
     private FoodListAdapter adapter;
     LinearLayoutManager foodLayoutManager;
     private MainViewModel mViewModel;
-    private FirebaseAuth mAuth;
 
+//Retrieve Region
 
+    //Choose Resteraunt
+    //Choose Address
+    //Save 3 values to Shared Preferences
+    //Use String Set to store all the regions
+    //Seperate String for Region
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference();
         Stetho.initializeWithDefaults(this);
 
-        mAuth = FirebaseAuth.getInstance();
-        anonymousSignIn();
+        //Check if user is logged in with util
+        FirebaseUtils fLogin  = new FirebaseUtils();
 
         final FoodItem testItem;
         final List<FoodItem> foodItemList = new ArrayList<FoodItem>();
-        testItem = new FoodItem("Tacos",0,60.00, 55.00);
+        //testItem = new FoodItem("Tacos",0,60.00, 55.00);
         rvFoodList = findViewById(R.id.rv_food_items);
         initRecyclerView();
         //Add a new food item
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         addFoodItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewModel.addFoodItem(testItem);
+               // mViewModel.addFoodItem(testItem);
             }
         });
         Button firebaseList = findViewById(R.id.firebase_list);
@@ -106,26 +112,26 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mViewModel.getFoodList().observe(this, foodObserver);
     }
-    private void anonymousSignIn() {
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        final String TAG = "Main Activity" ;
-
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInAnonymously:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInAnonymously:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        // ...
-                    }
-                });
-
-    }
+//    private void anonymousSignIn() {
+//        mAuth.signInAnonymously()
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        final String TAG = "Main Activity" ;
+//
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d(TAG, "signInAnonymously:success");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "signInAnonymously:failure", task.getException());
+//                            Toast.makeText(getApplicationContext(), "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                        // ...
+//                    }
+//                });
+//
+//    }
 }

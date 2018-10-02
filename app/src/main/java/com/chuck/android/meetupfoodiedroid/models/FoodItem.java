@@ -1,5 +1,6 @@
 package com.chuck.android.meetupfoodiedroid.models;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
@@ -12,16 +13,18 @@ import java.util.UUID;
 
 public class FoodItem {
     //Food item attributes
-    @PrimaryKey
-    @NonNull private String id;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "fid")
+    private int id;
     private String itemName;
+    private String addDescription;
     private int imgSrc;
     private double price;
     private double customPrice;
 
-    public FoodItem( String itemName, Integer imgSrc, double price, double customPrice) {
-        this.id = UUID.randomUUID().toString();
+    public FoodItem( String itemName,String addDescription, Integer imgSrc, double price, double customPrice) {
         this.itemName = itemName;
+        this.addDescription = addDescription;
         this.imgSrc = imgSrc;
         this.price = price;
         this.customPrice = customPrice;
@@ -62,10 +65,19 @@ public class FoodItem {
         this.customPrice = customPrice;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
-    public void setId(String id) {this.id = id;}
+
+    public void setId(int id){this.id = id;}
+
+    public String getAddDescription() {
+        return addDescription;
+    }
+
+    public void setAddDescription(String addDescription) {
+        this.addDescription = addDescription;
+    }
 
     //Constructor
 

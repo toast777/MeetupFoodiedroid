@@ -39,7 +39,7 @@ public class FirebaseFoodAdapter extends RecyclerView.Adapter<FirebaseFoodAdapte
             myIntent.putExtra("EXTRA_FOOD_IMGSRC", foodList.get(position).getImgSrc());
             myIntent.putExtra("EXTRA_FOOD_NUMBERADDONS", foodList.get(position).getNumAddOns());
             myIntent.putExtra("EXTRA_FOOD_PRICE", foodList.get(position).getPrice());
-            myIntent.putExtra("EXTRA_FOOD_ALLOWADDONS"foodList.get(position).isAllowAddOns());
+            myIntent.putExtra("EXTRA_FOOD_ALLOWADDONS",foodList.get(position).isAllowAddOns());
             view.getContext().startActivity(myIntent);
 
 

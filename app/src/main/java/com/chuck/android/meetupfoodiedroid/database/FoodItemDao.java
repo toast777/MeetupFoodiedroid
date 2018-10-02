@@ -19,9 +19,12 @@ public interface FoodItemDao {
     @Delete
     void deleteFood(FoodItem foodItem);
 
-    @Query("SELECT * FROM foodItems WHERE id = :id")
+    @Query("SELECT * FROM foodItems WHERE fid = :id")
     FoodItem getFoodByID(int id);
 
     @Query("SELECT * FROM foodItems")
     LiveData<List<FoodItem>> getAll();
+
+    @Query("DELETE FROM foodItems")
+    void deleteAll();
 }
